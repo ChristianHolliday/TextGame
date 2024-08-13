@@ -2,17 +2,17 @@
 # Game start message
 def game_start():
     print('|' + ('-' * 72) + '|')
-    print('|' + ' ' * 17 + 'Welcome to Shadows of the Necromancer!' + ' ' * 17 + '|')
+    print('|' + ' ' * 16 + 'Welcome to Shadows of the Necromancer!' + ' ' * 16 + '|')
     print('|' + (' ' * 72) + '|')
     print('|Commands: go South, go North, go East, go West, Exit, Search, Inventory |')
     print('|' + (' ' * 72) + '|')
-    print(('|' + ' ' * 11) + 'Collect all items before fighting the Necromancer!' + (' ' * 11 + '|'))
+    print('|' + ' ' * 10 + 'Collect all items before fighting the Necromancer!' + ' ' * 11 + '|')
     print('|' + (' ' * 72) + '|')
     print('|' + ('-' * 72) + '|')
 
 
 # Search room for item and let player know if/what item found
-def search_room(room):
+def search_room(room, rooms):
     if 'items' in rooms[room]:
         items = rooms[room]['items']
         print(f"You found: {', '.join(items)}")
@@ -72,50 +72,49 @@ def display_inventory(inventory):
     print()
 
 
-# Room available directions and associated items
-rooms = {
-    'Village Square': {
-        'West': 'Enchanted Forest'
-    },
-    'Enchanted Forest': {
-        'East': 'Village Square',
-        'South': 'Haunted Cemetery',
-        'items': ['Ancient Sword']
-    },
-    'Haunted Cemetery': {
-        'West': 'Cursed Swamp',
-        'North': 'Enchanted Forest',
-        'East': 'Laboratory',
-        'South': 'Ancient Library',
-        'items': ['Scroll of Light']
-    },
-    'Cursed Swamp': {
-        'East': 'Haunted Cemetery',
-        'items': ['Holy Water']
-    },
-    'Ancient Library': {
-        'North': 'Haunted Cemetery',
-        'East': 'Tower of Shadows',
-        'items': ['Mystic Amulet']
-    },
-    'Laboratory': {
-        'West': 'Haunted Cemetery',
-        'South': 'Tower of Shadows',
-        'North': 'Throne Room',
-        'items': ['Healing Potion']
-    },
-    'Tower of Shadows': {
-        'North': 'Laboratory',
-        'West': 'Ancient Library',
-        'items': ['Shadow Key']
-    },
-    'Throne Room': {
-        'South': 'Laboratory'
-    }
-}
-
-
 def main():
+    # Room available directions and associated items
+    rooms = {
+        'Village Square': {
+            'West': 'Enchanted Forest'
+        },
+        'Enchanted Forest': {
+            'East': 'Village Square',
+            'South': 'Haunted Cemetery',
+            'items': ['Ancient Sword']
+        },
+        'Haunted Cemetery': {
+            'West': 'Cursed Swamp',
+            'North': 'Enchanted Forest',
+            'East': 'Laboratory',
+            'South': 'Ancient Library',
+            'items': ['Scroll of Light']
+        },
+        'Cursed Swamp': {
+            'East': 'Haunted Cemetery',
+            'items': ['Holy Water']
+        },
+        'Ancient Library': {
+            'North': 'Haunted Cemetery',
+            'East': 'Tower of Shadows',
+            'items': ['Mystic Amulet']
+        },
+        'Laboratory': {
+            'West': 'Haunted Cemetery',
+            'South': 'Tower of Shadows',
+            'North': 'Throne Room',
+            'items': ['Healing Potion']
+        },
+        'Tower of Shadows': {
+            'North': 'Laboratory',
+            'West': 'Ancient Library',
+            'items': ['Shadow Key']
+        },
+        'Throne Room': {
+            'South': 'Laboratory'
+        }
+    }
+
     game_start()
     print()
     print()
@@ -181,7 +180,7 @@ def main():
             else:
                 print('You cannot go that way.')
         elif game_control.lower() == 'search':
-            items = search_room(current_room)
+            items = search_room(current_room, rooms)
             if items:
                 inventory.extend(items)
                 # Remove items from the room
